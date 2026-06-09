@@ -233,7 +233,7 @@ function SWOTPanel({profile}){
   const [loading,setLoading]=useState(false)
   const generate=async()=>{
     setLoading(true);setData(null)
-    try{const r=await fetch('https://bizbrain-backend-8s6d.onrender.com/api/swot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
+    try{const r=await fetch('http://localhost:5000/api/swot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
     catch(e){alert('SWOT failed: '+e.message)}finally{setLoading(false)}
   }
   const quadrants=data?[
