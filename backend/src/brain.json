@@ -1,0 +1,280 @@
+{
+  "version": "1.0",
+  "name": "BizBrain Knowledge Pillars",
+  "pillars": [
+    {
+      "id": "human_psychology",
+      "title": "Human Psychology & Buyer Behaviour",
+      "description": "The complete map of cognitive biases and emotional triggers that drive purchasing decisions.",
+      "concepts": [
+        {
+          "name": "Loss Aversion",
+          "definition": "People feel the pain of losing something roughly twice as intensely as the pleasure of gaining the equivalent. Losses loom larger than gains.",
+          "business_application": "Frame offers as 'Don't miss out' rather than 'Gain this'. Highlight what the customer loses by NOT buying.",
+          "tactics": ["Limited time offers", "Expiring discounts", "'Only 3 left' inventory signals", "Free trial with cancellation friction"]
+        },
+        {
+          "name": "Anchoring Effect",
+          "definition": "The first number a person sees becomes the psychological reference point for all subsequent judgments of value.",
+          "business_application": "Always show a higher 'original price' before the sale price. Lead with your premium tier in pricing tables.",
+          "tactics": ["Strikethrough pricing", "Premium tier listed first", "High-value competitor comparison", "'Was ₹5000, now ₹2999'"]
+        },
+        {
+          "name": "Social Proof",
+          "definition": "Humans look to others' behaviour to determine the correct action, especially in uncertain situations.",
+          "business_application": "Show real-time purchase counts, review counts, customer logos, and testimonials prominently.",
+          "tactics": ["'1,200 businesses trust us'", "Star ratings near CTA", "Customer photos over stock images", "Recent purchase popups"]
+        },
+        {
+          "name": "Scarcity Trigger",
+          "definition": "Items perceived as scarce are valued more highly than identical items that are abundant.",
+          "business_application": "Communicate genuine stock limits, seat limits, or time windows. Even perceived scarcity changes conversion rates.",
+          "tactics": ["Stock countdown", "Enrollment deadlines", "Exclusive membership caps", "Seasonal-only products"]
+        },
+        {
+          "name": "Decision Fatigue",
+          "definition": "The quality of decisions deteriorates after a long session of decision making. Too many choices leads to no choice.",
+          "business_application": "Reduce options. Highlight a 'Most Popular' plan. Use a clear recommended path through your product.",
+          "tactics": ["3-tier pricing (not 7)", "'Recommended' badge on mid-tier", "Simplified menus", "Pre-configured bundles"]
+        },
+        {
+          "name": "IKEA Effect",
+          "definition": "People place disproportionately high value on products they have partially created or customised themselves.",
+          "business_application": "Allow customers to personalise, configure, or co-create. Involve them in the product.",
+          "tactics": ["Custom engraving", "Build-your-own bundles", "Onboarding wizards that feel personal", "Name on product"]
+        },
+        {
+          "name": "Endowment Effect",
+          "definition": "People value something more once they feel they own it, even temporarily.",
+          "business_application": "Free trials with full access create ownership feeling. 'Your personalised dashboard' language increases attachment.",
+          "tactics": ["Free trials (not freemium)", "Pre-filled profiles on signup", "Saved cart with name attached", "'Your plan' language"]
+        },
+        {
+          "name": "Reciprocity",
+          "definition": "When someone gives us something, we feel a psychological obligation to give something back.",
+          "business_application": "Lead with genuine free value — guides, audits, tools — before asking for the sale.",
+          "tactics": ["Free audit tools", "Valuable lead magnets", "Unexpected upgrade gifts", "Handwritten thank-you notes"]
+        },
+        {
+          "name": "Foot-in-the-Door",
+          "definition": "Agreeing to a small request increases likelihood of agreeing to a larger request later.",
+          "business_application": "Get micro-commitments first: email signup → free trial → paid plan. Each yes makes the next yes easier.",
+          "tactics": ["Email before purchase flow", "Free tier before paid", "Quiz before recommendations", "Wishlist before checkout"]
+        },
+        {
+          "name": "Decoy Effect",
+          "definition": "Introducing a third, clearly inferior option makes one of the original options look significantly more attractive.",
+          "business_application": "Design your pricing tiers so the middle option looks like the clear winner. The decoy makes the target irresistible.",
+          "tactics": ["3-tier pricing with one 'bad' option", "Bundle comparisons", "Feature matrix design"]
+        }
+      ]
+    },
+    {
+      "id": "market_structure",
+      "title": "Market Structure Analysis",
+      "description": "Frameworks to understand the forces, dynamics, and topology of any market your business operates in.",
+      "concepts": [
+        {
+          "name": "Porter's Five Forces",
+          "definition": "A framework that identifies five competitive forces that shape every industry and market.",
+          "forces": [
+            { "name": "Threat of New Entrants", "questions": ["How easy is it to enter your market?", "What are your moats?"] },
+            { "name": "Bargaining Power of Suppliers", "questions": ["How many suppliers exist?", "Can you switch?"] },
+            { "name": "Bargaining Power of Buyers", "questions": ["How price-sensitive are your customers?", "Can they switch easily?"] },
+            { "name": "Threat of Substitutes", "questions": ["What else solves your customer's problem?", "Is it cheaper?"] },
+            { "name": "Competitive Rivalry", "questions": ["How aggressive are existing competitors?", "Is the market growing or shrinking?"] }
+          ]
+        },
+        {
+          "name": "Blue Ocean Strategy",
+          "definition": "Creating uncontested market space by making competition irrelevant, rather than competing in existing (red) oceans.",
+          "business_application": "Identify factors the industry competes on, eliminate or reduce the ones customers don't value, raise or create factors they do.",
+          "tools": ["Four Actions Framework (Eliminate, Reduce, Raise, Create)", "Strategy Canvas", "Value Curve Mapping"]
+        },
+        {
+          "name": "Market Saturation Detection",
+          "definition": "Understanding whether a market is approaching its maximum penetration level, signaling declining margins and intense competition.",
+          "signals": ["Declining average selling prices", "Increasing ad costs", "Consolidation (mergers/acquisitions)", "Feature commoditisation"],
+          "response_strategies": ["Niche down to underserved segment", "Move upmarket", "Geographic expansion", "Adjacent market entry"]
+        },
+        {
+          "name": "Demand Elasticity Modeling",
+          "definition": "Price elasticity measures how sensitive demand is to price changes. Elastic demand drops sharply with price increases; inelastic demand holds.",
+          "business_application": "Know whether you can raise prices without losing volume. Luxury goods are inelastic; commodities are elastic.",
+          "formula": "Elasticity = % Change in Quantity / % Change in Price",
+          "tactics": ["Test small price increases on a segment", "Survey willingness to pay", "Monitor competitor price changes and your volume response"]
+        }
+      ]
+    },
+    {
+      "id": "money_flow",
+      "title": "Money Flow Intelligence",
+      "description": "Understanding where capital moves, how revenue should be structured, and how cash timing affects business survival.",
+      "concepts": [
+        {
+          "name": "Revenue Stream Architecture",
+          "types": [
+            { "type": "Transactional", "description": "One-time product or service sales. High acquisition cost, no guaranteed repeat." },
+            { "type": "Recurring / Subscription", "description": "Predictable monthly or annual revenue. Most valuable for valuation multiples." },
+            { "type": "Usage-Based", "description": "Customers pay for what they consume. Lower barrier to entry, volatile revenue." },
+            { "type": "Licensing", "description": "IP, brand, or technology rented to others. Highly scalable, minimal marginal cost." },
+            { "type": "Marketplace Commission", "description": "Take rate on transactions between two sides. Network effects compound value." },
+            { "type": "Freemium Conversion", "description": "Free tier creates user base; conversion to paid monetises the top percentage." }
+          ]
+        },
+        {
+          "name": "High-Margin vs High-Volume Tradeoff",
+          "definition": "Two fundamentally different profit strategies: few customers paying a lot, or many customers paying a little.",
+          "high_margin_signals": ["Expertise or uniqueness required", "B2B or enterprise sales", "Custom or bespoke work", "Strong brand premium"],
+          "high_volume_signals": ["Consumer market", "Commoditised product", "Low switching cost", "Network effects possible"],
+          "danger_zone": "Trapped in middle — not cheap enough to win on volume, not premium enough to justify high price."
+        },
+        {
+          "name": "Cash Flow Timing Intelligence",
+          "definition": "A profitable business can still die from cash flow problems if money exits before it enters.",
+          "tactics": ["Collect upfront (annual subscriptions over monthly)", "Negotiate longer supplier payment terms", "Invoice immediately on delivery", "Build a 3-month cash reserve before scaling spend"],
+          "warning_signs": ["Paying suppliers before collecting from customers", "Growing revenue but shrinking cash", "Seasonal demand with fixed overhead"]
+        },
+        {
+          "name": "CAC vs LTV Framework",
+          "definition": "Customer Acquisition Cost vs Lifetime Value. The ratio determines whether your business model is fundamentally profitable.",
+          "healthy_ratio": "LTV should be at least 3x CAC for a sustainable business.",
+          "levers_to_improve": {
+            "reduce_cac": ["Referral programs", "Content marketing", "Partnerships", "Retention reduces repeat acquisition cost"],
+            "increase_ltv": ["Upsells and cross-sells", "Subscription tiers", "Loyalty programs", "Reduced churn"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "price_patterns",
+      "title": "Price Pattern Recognition",
+      "description": "The science and psychology of pricing — how to set, communicate, and change prices to maximise revenue and perceived value.",
+      "concepts": [
+        {
+          "name": "Psychological Price Thresholds",
+          "definition": "Prices just below round numbers (₹99, ₹999, ₹4,999) feel significantly cheaper than the round number above.",
+          "explanation": "Buyers read left-to-right, so ₹999 registers as '9 hundred' before processing the full number. The first digit dominates perception.",
+          "application": "Always price below the threshold unless you are signalling premium. ₹10,000 can signal quality where ₹9,999 looks cheap.",
+          "thresholds": ["₹99 / ₹100", "₹499 / ₹500", "₹999 / ₹1,000", "₹4,999 / ₹5,000", "₹9,999 / ₹10,000"]
+        },
+        {
+          "name": "Value-Based Pricing",
+          "definition": "Setting price based on what the customer perceives the outcome is worth, not based on cost-plus logic.",
+          "business_application": "If your product saves a customer ₹50,000 per year, pricing at ₹12,000 per year is defensible regardless of your cost.",
+          "steps": ["Identify the specific outcome the customer achieves", "Quantify that outcome in money or time", "Price at 20-30% of the value delivered"]
+        },
+        {
+          "name": "Penetration Pricing Strategy",
+          "definition": "Entering a market with a low price to capture market share quickly, with the intention to raise price later.",
+          "risks": ["Trains customers to expect low prices", "Attracts price-sensitive customers who churn when price rises", "Can trigger price war"],
+          "when_to_use": ["New market entry", "Displacing an established incumbent", "Network-effect businesses where scale matters more than early margin"]
+        },
+        {
+          "name": "Premium Pricing Signals",
+          "definition": "Counterintuitively, a higher price often increases perceived quality and desirability.",
+          "conditions": ["Product quality is hard to evaluate before purchase", "Price signals status or success", "Competitors cluster at lower prices creating a gap"],
+          "execution": ["Remove cheap options entirely", "Use round numbers (₹10,000 not ₹9,999)", "Invest in premium packaging and presentation", "Be selective about who you sell to"]
+        },
+        {
+          "name": "Discount Timing Intelligence",
+          "definition": "When and how you discount matters as much as how much you discount.",
+          "rules": ["Never discount without a reason (undermines price integrity)", "Seasonal discounts maintain integrity better than random ones", "Bundle discounts preserve individual product price perception", "Loyalty discounts reward behaviour without training all customers to wait for sales"],
+          "dangerous_patterns": ["Flash sales too frequently", "Responding to every competitor discount", "Training your audience to never pay full price"]
+        }
+      ]
+    },
+    {
+      "id": "competitive_battlefield",
+      "title": "Competitive Battlefield Analysis",
+      "description": "Systematic frameworks for understanding, monitoring, and outmanoeuvring competitors.",
+      "concepts": [
+        {
+          "name": "Competitor Weakness Mapping",
+          "definition": "Systematically identifying the gaps, vulnerabilities, and underserved customers of each competitor.",
+          "dimensions": ["Price positioning gaps", "Customer segment blind spots", "Geographic coverage gaps", "Feature or service gaps", "Review sentiment analysis (what customers complain about)", "Response time and support quality"],
+          "method": "For each competitor, read their 1-star and 2-star reviews. The complaints are a direct map of opportunities."
+        },
+        {
+          "name": "SWOT Live Analysis",
+          "definition": "A dynamic Strengths-Weaknesses-Opportunities-Threats framework tied to specific actions, not just a static matrix.",
+          "action_mapping": {
+            "SO_strategy": "Use strengths to capitalise on opportunities",
+            "ST_strategy": "Use strengths to neutralise threats",
+            "WO_strategy": "Overcome weaknesses by pursuing opportunities",
+            "WT_strategy": "Minimise weaknesses and avoid threats"
+          }
+        },
+        {
+          "name": "Counter-Move Playbook",
+          "definition": "Pre-planned strategic responses to the most likely moves competitors will make.",
+          "response_options": [
+            { "move": "Competitor drops price", "options": ["Do not match — differentiate on value", "Create a value-tier sub-brand", "Bundle to change the price comparison"] },
+            { "move": "Competitor launches new product", "options": ["Accelerate your roadmap", "Reposition your product against their weakness", "Acquire or partner with a complementary player"] },
+            { "move": "Competitor runs aggressive ad campaign", "options": ["Target their brand keywords with comparison ads", "Double down on community and organic", "Launch a PR story about a different angle"] }
+          ]
+        },
+        {
+          "name": "First-Mover vs Fast-Follower",
+          "definition": "Being first in a market carries brand recognition advantages but also the cost of educating the market. Fast followers learn from first-mover mistakes.",
+          "first_mover_advantages": ["Brand association with category", "Talent acquisition head start", "Customer lock-in and switching costs"],
+          "fast_follower_advantages": ["Learn from first-mover's product mistakes", "Enter when the market is proven", "Compete on execution rather than education"],
+          "recommendation": "In technology markets, fast-follower with superior execution often wins. In brand-driven markets, first-mover advantage is more durable."
+        }
+      ]
+    },
+    {
+      "id": "winning_strategies",
+      "title": "Winning Business Strategies",
+      "description": "Proven playbooks for growth, retention, scaling, and building durable competitive advantages.",
+      "concepts": [
+        {
+          "name": "Growth Hacking Frameworks",
+          "definition": "High-velocity, low-cost experiments designed to find the fastest path to growth with limited resources.",
+          "tactics": ["Viral loops (every user action that invites another user)", "Product-led growth (product itself is the marketing)", "Reverse trials (give full access, then limit)", "Integration partnerships that distribute you through another product's user base"]
+        },
+        {
+          "name": "Retention Loop Design",
+          "definition": "Engineering your product so that continued use creates increasing value, making it progressively harder to leave.",
+          "loop_types": [
+            { "type": "Data Loop", "example": "The more data I put in, the more personalised the output, the harder to leave" },
+            { "type": "Social Loop", "example": "My colleagues/customers are in here — I can't leave without disrupting them" },
+            { "type": "Habit Loop", "example": "Daily use is built into my routine — I don't think about switching" },
+            { "type": "Investment Loop", "example": "I've built so much in here (history, templates, settings) that the switching cost is high" }
+          ]
+        },
+        {
+          "name": "Upsell & Cross-Sell Architecture",
+          "definition": "Systematically increasing revenue per customer through higher tiers and adjacent products.",
+          "upsell_triggers": ["Usage approaching plan limit", "Feature unlock request", "Business milestone (anniversary, growth event)", "Competitor activity alert"],
+          "cross_sell_principles": ["Recommend at moment of success, not at signup", "Offer adjacent value, not just more of the same", "Let behaviour data, not guesswork, drive recommendations"]
+        },
+        {
+          "name": "Referral Flywheel Design",
+          "definition": "A systematic mechanism where existing customers reliably bring in new customers, compounding growth.",
+          "components": ["Clear incentive for referrer", "Clear incentive for referred", "Frictionless sharing mechanism", "Tracking and attribution", "Reward delivery that reinforces behaviour"],
+          "flywheel_law": "The best referral programs make the referrer look good to their network, not just reward them financially."
+        },
+        {
+          "name": "Product-Market Fit Scoring",
+          "definition": "Measuring how strongly your product satisfies a specific market's needs — the precondition for sustainable growth.",
+          "sean_ellis_test": "Ask customers: 'How would you feel if you could no longer use this product?' If >40% answer 'Very disappointed', you likely have PMF.",
+          "signals_of_pmf": ["Organic word-of-mouth without paid acquisition", "Users complain loudly when you change something", "Retention curves flatten (users stick around)", "Customers use the product in ways you didn't anticipate"],
+          "signals_of_missing_pmf": ["High churn after trial", "Customers need heavy convincing", "Users politely interested but not passionate", "Growth requires constant heavy marketing spend"]
+        },
+        {
+          "name": "Profitability Levers",
+          "definition": "The specific mechanisms available to any business to increase net profit.",
+          "levers": [
+            { "lever": "Price increase", "impact": "High", "risk": "Medium — requires strong value communication" },
+            { "lever": "Churn reduction", "impact": "Very High", "risk": "Low — retained revenue compounds" },
+            { "lever": "COGS reduction", "impact": "Medium", "risk": "Low — supplier negotiation, process efficiency" },
+            { "lever": "Upsell rate improvement", "impact": "High", "risk": "Low — already acquired customer" },
+            { "lever": "CAC reduction", "impact": "High", "risk": "Medium — requires marketing strategy shift" },
+            { "lever": "Conversion rate optimisation", "impact": "High", "risk": "Low — A/B testing approach" }
+          ]
+        }
+      ]
+    }
+  ]
+}
