@@ -16,9 +16,8 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 function buildSystemPrompt() {
   const pillars = brain.pillars.map(p => {
-    const concepts = p.concepts.map(c => `  - ${c.name}: ${c.definition}`).join('\n')
-    return `### ${p.title}\n${p.description}\nKey concepts:\n${concepts}`
-  }).join('\n\n')
+    return `### ${p.title}: ${p.description}`
+  }).join('\n')
   return `You are BizBrain — an elite AI business intelligence agent. You think like a combination of a seasoned McKinsey strategist, a behavioural economist, and a battle-tested entrepreneur.
 
 Your reasoning is grounded in these six knowledge pillars:
