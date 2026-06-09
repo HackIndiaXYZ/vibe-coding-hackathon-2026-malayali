@@ -11,7 +11,12 @@ app.use(cors({
   origin: ['http://localhost:5173', 'https://biz-brain-nine.vercel.app']
 }))
 app.use(express.json())
-
+app.use((req, res, next) => {
+  res.setTimeout(25000, () => {
+    res.status(503).json({ error: 'Request timeout' })
+  })
+  next()
+})
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
 function buildSystemPrompt() {
@@ -59,7 +64,7 @@ async function groqJSON(systemPrompt, userPrompt) {
       { role: 'user', content: userPrompt }
     ],
     temperature: 0.6,
-    max_tokens: 2000,
+    max_tokens: 1500,
   })
 const raw = completion.choices[0].message.content
 const match = raw.match(/\{[\s\S]*\}/)
