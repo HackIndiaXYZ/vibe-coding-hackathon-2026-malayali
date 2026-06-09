@@ -60,11 +60,12 @@ async function groqJSON(systemPrompt, userPrompt) {
       { role: 'user', content: userPrompt }
     ],
     temperature: 0.6,
-    max_tokens: 3000,
+    max_tokens: 2000,
   })
-  const raw = completion.choices[0].message.content
-  const clean = raw.replace(/```json|```/g, '').trim()
-  return JSON.parse(clean)
+const raw = completion.choices[0].message.content
+const match = raw.match(/\{[\s\S]*\}/)
+if (!match) throw new Error('No JSON found in response')
+return JSON.parse(match[0])
 }
 
 // ─── Health ───────────────────────────────────────────────────────────────────
@@ -94,7 +95,7 @@ app.post('/api/analyse/stream', async (req, res) => {
       model: 'llama-3.3-70b-versatile',
       messages: [{ role: 'system', content: buildSystemPrompt() }, ...messages],
       temperature: 0.7,
-      max_tokens: 2048,
+      max_tokens: 1500,
       stream: true
     })
     for await (const chunk of stream) {
