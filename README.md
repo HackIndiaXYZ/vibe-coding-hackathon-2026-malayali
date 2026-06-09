@@ -146,8 +146,8 @@ npm run dev
 
 ## 🌍 Live Demo
 
-- **Frontend:** (add after Vercel deployment)
-- **Backend:** (add after Render deployment)
+https://biz-brain-nine.vercel.app
+
 ---
 
 ## 💡 Business Use Cases
