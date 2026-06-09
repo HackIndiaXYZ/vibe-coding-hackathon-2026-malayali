@@ -8,7 +8,7 @@ dotenv.config()
 
 const app = express()
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://your-vercel-url.vercel.app']
+  origin: ['http://localhost:5173', 'https://biz-brain-nine.vercel.app']
 }))
 app.use(express.json())
 

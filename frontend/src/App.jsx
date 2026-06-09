@@ -233,7 +233,7 @@ function SWOTPanel({profile}){
   const [loading,setLoading]=useState(false)
   const generate=async()=>{
     setLoading(true);setData(null)
-    try{const r=await fetch('http://localhost:5000/api/swot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
+    try{const r=await fetch('https://bizbrain-backend-8s6d.onrender.com/api/swot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
     catch(e){alert('SWOT failed: '+e.message)}finally{setLoading(false)}
   }
   const quadrants=data?[
@@ -309,7 +309,7 @@ function CompetitorPanel({profile}){
   const analyse=async()=>{
     if(!input.trim())return
     setLoading(true);setData(null)
-    try{const r=await fetch('http://localhost:5000/api/competitors',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,competitors:input})});setData(await r.json())}
+    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/competitors`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,competitors:input})});setData(await r.json())}
     catch(e){alert('Failed: '+e.message)}finally{setLoading(false)}
   }
   const tc=t=>t==='High'?C.red:t==='Medium'?C.yellow:C.green
@@ -406,7 +406,7 @@ function ProfitSimPanel({profile}){
   const simulate=async()=>{
     if(!scenario.trim())return
     setLoading(true);setData(null)
-    try{const r=await fetch('http://localhost:5000/api/simulate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,scenario})});setData(await r.json())}
+    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/simulate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,scenario})});setData(await r.json())}
     catch(e){alert('Simulation failed: '+e.message)}finally{setLoading(false)}
   }
   const vc=v=>v==='Go for it'?C.green:v==='Avoid this move'?C.red:C.yellow
@@ -521,7 +521,7 @@ function ScorePanel({profile}){
 
   const generate=async()=>{
     setLoading(true);setData(null)
-    try{const r=await fetch('http://localhost:5000/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
+    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/score`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
     catch(e){alert('Score generation failed: '+e.message)}finally{setLoading(false)}
   }
 
@@ -635,7 +635,7 @@ function RoadmapPanel({profile}){
 
   const generate=async()=>{
     setLoading(true);setData(null)
-    try{const r=await fetch('http://localhost:5000/api/roadmap',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
+    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/roadmap`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
     catch(e){alert('Roadmap generation failed: '+e.message)}finally{setLoading(false)}
   }
 
@@ -753,7 +753,7 @@ function ChatPanel({profile}){
     setMessages(newMessages);setInput('');setLoading(true);setStreamText('')
     const conversationHistory=newMessages.slice(-8,-1).map(m=>({role:m.role,content:m.content}))
     try{
-      const res=await fetch('http://localhost:5000/api/analyse/stream',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,question,conversationHistory})})
+      const res=await fetch(`${import.meta.env.VITE_API_URL}/api/analyse/stream`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,question,conversationHistory})})
       const reader=res.body.getReader();const decoder=new TextDecoder();let full=''
       while(true){
         const{done,value}=await reader.read();if(done)break
