@@ -7,17 +7,18 @@ const brain = require('./brain.json')
 dotenv.config()
 
 const app = express()
-app.use(cors({
-  origin: ['http://localhost:5173', 'https://biz-brain-nine.vercel.app']
-}))
+app.use(cors())
 app.use(express.json())
 app.use((req, res, next) => {
-  res.setTimeout(25000, () => {
-    res.status(503).json({ error: 'Request timeout' })
+  res.setTimeout(60000, () => {
+    if (!res.headersSent) {
+      res.status(503).json({ error: 'Request timeout' })
+    }
   })
   next()
 })
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
+const MODEL_NAME = process.env.GROQ_MODEL || 'openai/gpt-oss-120b'
 
 function buildSystemPrompt() {
   const pillars = brain.pillars.map(p => {
@@ -28,14 +29,15 @@ function buildSystemPrompt() {
 Your reasoning is grounded in these six knowledge pillars:
 ${pillars}
 
-RULES:
-- Always give specific, actionable advice — never generic platitudes
-- Reference relevant psychological principles and frameworks by name when applicable
-- Structure your responses with clear sections using markdown
-- When suggesting pricing, use ₹ (Indian Rupee) unless the user specifies otherwise
-- Always end with a "Top 3 Immediate Actions" section ranked by impact
-- Be direct, sharp, and confident — entrepreneurs need clarity, not hedging
-- Tailor every response to the specific business data the user provides`
+FORMAT & STRUCTURE RULES:
+- Format all responses with clean, highly structured Markdown.
+- Use clear ## and ### headings with icons/emojis to divide major sections.
+- Use bullet points, bold keyphrases, and numbered lists for readability.
+- When comparing options, leaks, metrics, or timelines, use clean multi-line Markdown tables with every row on a new line.
+- NEVER compress table rows or list items onto a single continuous line with "||". Ensure every row and bullet point has proper line breaks.
+- Always end with a "### 🎯 Top 3 Immediate Actions" section ranked by impact.
+- When suggesting pricing, use ₹ (Indian Rupee) unless specified otherwise.
+- Be direct, sharp, and confident — give tailored tactical solutions with psychological and strategic backing.`
 }
 
 function profileContext(p) {
@@ -58,23 +60,28 @@ BUSINESS CONTEXT:
 
 async function groqJSON(systemPrompt, userPrompt) {
   const completion = await groq.chat.completions.create({
-    model: 'llama-3.3-70b-versatile',
+    model: MODEL_NAME,
     messages: [
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt }
     ],
-    temperature: 0.6,
-    max_tokens: 1500,
+    response_format: { type: 'json_object' },
+    temperature: 0.4,
+    max_tokens: 3500,
   })
-const raw = completion.choices[0].message.content
-const match = raw.match(/\{[\s\S]*\}/)
-if (!match) throw new Error('No JSON found in response')
-return JSON.parse(match[0])
+  const raw = completion.choices[0]?.message?.content || ''
+  try {
+    return JSON.parse(raw)
+  } catch (e) {
+    const match = raw.match(/\{[\s\S]*\}/)
+    if (!match) throw new Error('Invalid JSON response: ' + e.message)
+    return JSON.parse(match[0])
+  }
 }
 
 // ─── Health ───────────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'BizBrain backend running', model: 'llama-3.3-70b-versatile' })
+  res.json({ status: 'BizBrain backend running', model: MODEL_NAME })
 })
 
 app.get('/api/brain', (req, res) => res.json(brain))
@@ -96,7 +103,7 @@ app.post('/api/analyse/stream', async (req, res) => {
 
   try {
     const stream = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: MODEL_NAME,
       messages: [{ role: 'system', content: buildSystemPrompt() }, ...messages],
       temperature: 0.7,
       max_tokens: 1500,
@@ -109,6 +116,7 @@ app.post('/api/analyse/stream', async (req, res) => {
     res.write('data: [DONE]\n\n')
     res.end()
   } catch (err) {
+    console.error('Stream error:', err)
     res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`)
     res.end()
   }

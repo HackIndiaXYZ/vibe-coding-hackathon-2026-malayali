@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
+const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '')
 
 // ─── THEME ────────────────────────────────────────────────────────────────────
 const C = {
@@ -233,7 +236,12 @@ function SWOTPanel({profile}){
   const [loading,setLoading]=useState(false)
   const generate=async()=>{
     setLoading(true);setData(null)
-    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/swot`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
+    try{
+      const r=await fetch(`${API_BASE}/api/swot`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})})
+      const json = await r.json()
+      if(!r.ok) throw new Error(json.detail || json.error || 'Failed to generate SWOT')
+      setData(json)
+    }
     catch(e){alert('SWOT failed: '+e.message)}finally{setLoading(false)}
   }
   const quadrants=data?[
@@ -309,7 +317,12 @@ function CompetitorPanel({profile}){
   const analyse=async()=>{
     if(!input.trim())return
     setLoading(true);setData(null)
-    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/competitors`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,competitors:input})});setData(await r.json())}
+    try{
+      const r=await fetch(`${API_BASE}/api/competitors`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,competitors:input})})
+      const json = await r.json()
+      if(!r.ok) throw new Error(json.detail || json.error || 'Failed to analyse competitors')
+      setData(json)
+    }
     catch(e){alert('Failed: '+e.message)}finally{setLoading(false)}
   }
   const tc=t=>t==='High'?C.red:t==='Medium'?C.yellow:C.green
@@ -406,7 +419,12 @@ function ProfitSimPanel({profile}){
   const simulate=async()=>{
     if(!scenario.trim())return
     setLoading(true);setData(null)
-    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/simulate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,scenario})});setData(await r.json())}
+    try{
+      const r=await fetch(`${API_BASE}/api/simulate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,scenario})})
+      const json = await r.json()
+      if(!r.ok) throw new Error(json.detail || json.error || 'Simulation failed')
+      setData(json)
+    }
     catch(e){alert('Simulation failed: '+e.message)}finally{setLoading(false)}
   }
   const vc=v=>v==='Go for it'?C.green:v==='Avoid this move'?C.red:C.yellow
@@ -521,7 +539,12 @@ function ScorePanel({profile}){
 
   const generate=async()=>{
     setLoading(true);setData(null)
-    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/score`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
+    try{
+      const r=await fetch(`${API_BASE}/api/score`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})})
+      const json = await r.json()
+      if(!r.ok) throw new Error(json.detail || json.error || 'Failed to generate score')
+      setData(json)
+    }
     catch(e){alert('Score generation failed: '+e.message)}finally{setLoading(false)}
   }
 
@@ -635,7 +658,12 @@ function RoadmapPanel({profile}){
 
   const generate=async()=>{
     setLoading(true);setData(null)
-    try{const r=await fetch(`${import.meta.env.VITE_API_URL}/api/roadmap`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})});setData(await r.json())}
+    try{
+      const r=await fetch(`${API_BASE}/api/roadmap`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile})})
+      const json = await r.json()
+      if(!r.ok) throw new Error(json.detail || json.error || 'Failed to generate roadmap')
+      setData(json)
+    }
     catch(e){alert('Roadmap generation failed: '+e.message)}finally{setLoading(false)}
   }
 
@@ -753,12 +781,26 @@ function ChatPanel({profile}){
     setMessages(newMessages);setInput('');setLoading(true);setStreamText('')
     const conversationHistory=newMessages.slice(-8,-1).map(m=>({role:m.role,content:m.content}))
     try{
-      const res=await fetch(`${import.meta.env.VITE_API_URL}/api/analyse/stream`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,question,conversationHistory})})
+      const res=await fetch(`${API_BASE}/api/analyse/stream`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({businessProfile:profile,question,conversationHistory})})
+      if(!res.ok) {
+        const errJson = await res.json().catch(()=>({}))
+        throw new Error(errJson.detail || errJson.error || `Server responded with ${res.status}`)
+      }
       const reader=res.body.getReader();const decoder=new TextDecoder();let full=''
       while(true){
         const{done,value}=await reader.read();if(done)break
         const lines=decoder.decode(value).split('\n').filter(l=>l.startsWith('data: '))
-        for(const line of lines){const d=line.replace('data: ','');if(d==='[DONE]')break;try{const p=JSON.parse(d);if(p.delta){full+=p.delta;setStreamText(full)}}catch{}}
+        for(const line of lines){
+          const d=line.replace('data: ','')
+          if(d==='[DONE]')break
+          try{
+            const p=JSON.parse(d)
+            if(p.error) throw new Error(p.error)
+            if(p.delta){full+=p.delta;setStreamText(full)}
+          }catch(err){
+            if(err.message && !err.message.includes('JSON')) throw err
+          }
+        }
       }
       setMessages(prev=>[...prev,{role:'assistant',content:full}]);setStreamText('')
     }catch(e){setMessages(prev=>[...prev,{role:'assistant',content:`⚠️ Error: ${e.message}`}])}
@@ -782,17 +824,17 @@ function ChatPanel({profile}){
         <div style={{flex:1,overflowY:'auto',padding:'28px 32px'}}>
           {messages.map((m,i)=>(
             <div key={i} style={{display:'flex',gap:'14px',marginBottom:'28px',flexDirection:m.role==='user'?'row-reverse':'row'}}>
-              <div style={{minWidth:'34px',height:'34px',borderRadius:'50%',background:m.role==='user'?'rgba(255,255,255,0.1)':`linear-gradient(135deg,${C.greenDark},${C.green})`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.95rem'}}>{m.role==='user'?'👤':'🧠'}</div>
-              <div style={{maxWidth:'72%',background:m.role==='user'?'rgba(255,255,255,0.06)':'rgba(45,106,79,0.08)',border:`1px solid ${m.role==='user'?C.border:'rgba(82,183,136,0.2)'}`,borderRadius:m.role==='user'?'16px 4px 16px 16px':'4px 16px 16px 16px',padding:'14px 18px',fontSize:'0.92rem',lineHeight:1.7}}>
-                {m.role==='assistant'?<div className="md-content"><ReactMarkdown>{m.content}</ReactMarkdown></div>:m.content}
+              <div style={{minWidth:'34px',height:'34px',borderRadius:'50%',background:m.role==='user'?'rgba(255,255,255,0.1)':`linear-gradient(135deg,${C.greenDark},${C.green})`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:'0.95rem',flexShrink:0}}>{m.role==='user'?'👤':'🧠'}</div>
+              <div style={{maxWidth:m.role==='user'?'72%':'88%',background:m.role==='user'?'rgba(255,255,255,0.06)':'rgba(45,106,79,0.08)',border:`1px solid ${m.role==='user'?C.border:'rgba(82,183,136,0.2)'}`,borderRadius:m.role==='user'?'16px 4px 16px 16px':'4px 16px 16px 16px',padding:'16px 22px',fontSize:'0.92rem',lineHeight:1.7}}>
+                {m.role==='assistant'?<div className="md-content"><ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown></div>:m.content}
               </div>
             </div>
           ))}
           {streamText&&(
             <div style={{display:'flex',gap:'14px',marginBottom:'28px'}}>
-              <div style={{minWidth:'34px',height:'34px',borderRadius:'50%',background:`linear-gradient(135deg,${C.greenDark},${C.green})`,display:'flex',alignItems:'center',justifyContent:'center'}}>🧠</div>
-              <div style={{maxWidth:'72%',background:'rgba(45,106,79,0.08)',border:'1px solid rgba(82,183,136,0.2)',borderRadius:'4px 16px 16px 16px',padding:'14px 18px',fontSize:'0.92rem',lineHeight:1.7}}>
-                <div className="md-content"><ReactMarkdown>{streamText}</ReactMarkdown></div>
+              <div style={{minWidth:'34px',height:'34px',borderRadius:'50%',background:`linear-gradient(135deg,${C.greenDark},${C.green})`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>🧠</div>
+              <div style={{maxWidth:'88%',background:'rgba(45,106,79,0.08)',border:'1px solid rgba(82,183,136,0.2)',borderRadius:'4px 16px 16px 16px',padding:'16px 22px',fontSize:'0.92rem',lineHeight:1.7}}>
+                <div className="md-content"><ReactMarkdown remarkPlugins={[remarkGfm]}>{streamText}</ReactMarkdown></div>
                 <span style={{display:'inline-block',width:'8px',height:'16px',background:C.green,marginLeft:'2px',animation:'blink 1s infinite'}}/>
               </div>
             </div>

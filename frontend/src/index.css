@@ -12,6 +12,7 @@ body {
 
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #0a0a0f;
@@ -19,4 +20,175 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #2d6a4f;
   border-radius: 4px;
+}
+
+/* ─── Markdown Content Styles ─────────────────────────────────────────── */
+.md-content {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #f0f0f0;
+  word-break: break-word;
+}
+
+.md-content h1,
+.md-content h2,
+.md-content h3,
+.md-content h4 {
+  color: #f8fafc;
+  font-weight: 700;
+  margin-top: 1.4em;
+  margin-bottom: 0.6em;
+  line-height: 1.3;
+}
+
+.md-content h1:first-child,
+.md-content h2:first-child,
+.md-content h3:first-child {
+  margin-top: 0.2em;
+}
+
+.md-content h1 {
+  font-size: 1.45rem;
+  color: #52b788;
+  border-bottom: 1px solid rgba(82, 183, 136, 0.25);
+  padding-bottom: 6px;
+}
+
+.md-content h2 {
+  font-size: 1.25rem;
+  color: #6ee7b7;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.md-content h3 {
+  font-size: 1.1rem;
+  color: #a7f3d0;
+}
+
+.md-content h4 {
+  font-size: 0.98rem;
+  color: #d1fae5;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.md-content p {
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+
+.md-content p:last-child {
+  margin-bottom: 0;
+}
+
+.md-content strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.md-content em {
+  color: #cbd5e1;
+  font-style: italic;
+}
+
+.md-content ul,
+.md-content ol {
+  margin: 0.8rem 0 1.2rem 1.4rem;
+  padding: 0;
+}
+
+.md-content li {
+  margin-bottom: 0.5rem;
+  color: #e2e8f0;
+}
+
+.md-content li::marker {
+  color: #52b788;
+}
+
+.md-content blockquote {
+  margin: 1.2rem 0;
+  padding: 12px 18px;
+  background: rgba(45, 106, 79, 0.12);
+  border-left: 4px solid #52b788;
+  border-radius: 0 8px 8px 0;
+  color: #d1d5db;
+  font-size: 0.92rem;
+}
+
+.md-content hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.8rem 0;
+}
+
+/* ─── Markdown Tables ─────────────────────────────────────────────────── */
+.md-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.2rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(82, 183, 136, 0.25);
+  background: rgba(20, 24, 30, 0.7);
+  font-size: 0.88rem;
+}
+
+.md-content th {
+  background: rgba(45, 106, 79, 0.35);
+  color: #52b788;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(82, 183, 136, 0.3);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.md-content td {
+  padding: 11px 14px;
+  color: #e2e8f0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  line-height: 1.55;
+  vertical-align: top;
+}
+
+.md-content tr:last-child td {
+  border-bottom: none;
+}
+
+.md-content tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.md-content tr:hover td {
+  background: rgba(82, 183, 136, 0.07);
+}
+
+/* ─── Code and Pre ────────────────────────────────────────────────────── */
+.md-content code {
+  background: rgba(255, 255, 255, 0.08);
+  color: #a78bfa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.88em;
+  font-family: 'Fira Code', monospace;
+}
+
+.md-content pre {
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.md-content pre code {
+  background: transparent;
+  padding: 0;
+  color: #e2e8f0;
 }
